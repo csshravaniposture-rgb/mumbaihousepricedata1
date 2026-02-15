@@ -17,7 +17,7 @@ encoder=joblib.load("label_encoder (2).pkl")
 st.title("Mumbai house price app")
 
 Title = st.selectbox("title",encoder["title"].classes_)
-price=st.number_input("price",0,1000000000)
+price =st.number_input("price")
 area=st.number_input("area")
 price_per_sqft=st.number_input("price_per_sqft")
 locality=st.selectbox("locality",encoder["locality"].classes_)
@@ -51,10 +51,7 @@ df=pd.DataFrame({
 
 })
 if st.button("Predict"):
-
-    for col in ["title","locality","city","property_type","furnished"]:
-        df[col] = encoder[col].transform(df[col])
-
-    prediction = model.predict(df)
-
-    st.success(f"Predicted Price: ₹ {prediction[0]:,.2f}")
+  for col in encoder:
+    df[col]=encoder[col].transform(df[[col]])
+Prediction=model.predict(df)
+st.success(f"Mumbai house price data: {Prediction[0]:,.2f}")
