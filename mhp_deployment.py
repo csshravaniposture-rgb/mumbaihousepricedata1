@@ -53,6 +53,5 @@ df=pd.DataFrame({
 if st.button("Predict"):
   for col in encoder:
     df[col]=encoder[col].transform(df[[col]])
-
-    Prediction=model.predict(df)
-    st.success(f"Mumbai house price data: {Prediction[0]:,.2f}")
+Prediction=model.predict(df)
+st.success(f"Mumbai house price data: {Prediction[0]:,.2f}")
