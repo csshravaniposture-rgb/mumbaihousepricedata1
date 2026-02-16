@@ -44,11 +44,15 @@ df= pd.DataFrame({
 })
 
 if st.button("Predict"):
-    for col in encoder:
-        df[col] = encoder[col].transform(df[col])
-        # Make sure columns are in same order as training
-df = df[model.feature_names_in_]
+    try:
+        for col in encoder:
+            df[col] = encoder[col].transform(df[col])
 
+        df = df[model.feature_names_in_]
 
-prediction = model.predict(df)
-st.success(f"Mumbai house price: {prediction[0]:,.2f}")
+        prediction = model.predict(df)
+
+        st.success(f"Mumbai house price: {prediction[0]:,.2f}")
+
+    except Exception as e:
+        st.error(f"Error: {e}")
